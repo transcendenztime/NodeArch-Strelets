@@ -9,10 +9,6 @@ webserver.use(express.urlencoded({extended:true}));
 
 const port = 3097;
 
-//меняем сервера
-//const SERVER = "http://localhost:"+port;
-const SERVER = "http://138.68.91.44:"+port;
-
 const logFN = path.join(__dirname, '_server.log');
 const { check, validationResult } = require('express-validator');
 
@@ -42,7 +38,7 @@ function makeFormPage(errorsObj, formValues) {
     
     
     <div>
-        <form method="GET" action="${SERVER}/user">
+        <form method="GET" action="/user">
             ваш логин: <input type="text" autocomplete="off"`;
 
     if(formValues && formValues.login) {
@@ -101,6 +97,7 @@ function makeFormPage(errorsObj, formValues) {
     return body;
 }
 
+//формируем страницу с данными пользователя
 function makeUserDataPage(formValues) {
     let body = `
     <head>
@@ -134,6 +131,8 @@ webserver.get('/', function(req, res) {
 webserver.get('/user',[
     //валидация
     check('login')
+        .not().isEmpty()
+        .withMessage("Поле обязательно для заполения")
         .isAlphanumeric()
         .withMessage('Буквы и цифры')
         .isLength({ min: 5, max: 16, })
@@ -146,11 +145,15 @@ webserver.get('/user',[
         .escape(),
 
     check('email')
+        .not().isEmpty()
+        .withMessage("Поле обязательно для заполения")
         .isEmail()
         .withMessage('Тут должен быть email')
         .escape(),
 
     check('age')
+        .not().isEmpty()
+        .withMessage("Поле обязательно для заполения")
         .isInt({min: 18,})
         .withMessage('Старше 18 лет')
         .escape(),
