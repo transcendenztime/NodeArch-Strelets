@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/loktevalexey/NodeArch.git"
+    "url": "https://github.com/transcendenztime/NodeArch-Strelets.git"
   },
   "keywords": [],
   "author": "Loktev Alexey",
@@ -30,6 +30,7 @@
     "express": "^4.16.4",
     "express-handlebars": "^3.1.0",
     "express-session": "^1.17.0",
+    "express-validator": "^6.4.0",
     "helmet": "^3.21.1",
     "ignore-styles": "^5.0.1",
     "isomorphic-fetch": "^2.2.1",
