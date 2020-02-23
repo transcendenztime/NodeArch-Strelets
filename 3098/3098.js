@@ -100,6 +100,7 @@ function makeFormPage(errorsObj, formValues) {
     return body;
 }
 
+//формируем страницу с данными пользователя
 function makeUserDataPage(formValues) {
     let body = `
     <head>
