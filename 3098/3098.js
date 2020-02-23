@@ -10,8 +10,8 @@ webserver.use(express.urlencoded({extended:true}));
 const port = 3098;
 
 //меняем сервера
-//const SERVER = "http://localhost:"+port;
-const SERVER = "http://138.68.91.44:"+port;
+const SERVER = "http://localhost:"+port;
+//const SERVER = "http://138.68.91.44:"+port;
 
 const logFN = path.join(__dirname, '_server.log');
 const { check, validationResult } = require('express-validator');
