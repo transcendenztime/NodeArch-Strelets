@@ -4,8 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
-const variants = require('./variants.json');
-const stats = require('./stats.json');
+//const variants = require('./variants.json');
+//const stats = require('./stats.json');
 
 const webserver = express(); // создаём веб-сервер
 
@@ -42,11 +42,13 @@ function logLineSync(logFilePath,logLine) {
 
 webserver.get('/variants', function(req, res) {
     logLineSync(logFN,`[${port}] `+"/variants service called");
+    let variants = fs.readFileSync("variants.json");
     res.send(variants);
 });
 
 webserver.get("/stats",function(req, res) {
     logLineSync(logFN,`[${port}] `+"/stats service called");
+    let stats = fs.readFileSync("stats.json");
     res.send(stats);
 });
 

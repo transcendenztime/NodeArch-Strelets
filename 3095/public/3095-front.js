@@ -38,7 +38,7 @@ function sendVote(code) {
     fetch('/vote', {method: "POST", headers: {'Content-Type': 'application/json'}, body: body})
         .then(response => response.json())
         .then( data => {
-            updateStats(data);
-            //getStats();
+            //updateStats(data);
+            getStats();
         })
 }
