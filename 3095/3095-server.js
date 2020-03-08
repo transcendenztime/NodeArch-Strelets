@@ -42,19 +42,19 @@ function logLineSync(logFilePath,logLine) {
 
 webserver.get('/variants', function(req, res) {
     logLineSync(logFN,`[${port}] `+"/variants service called");
-    let variants = fs.readFileSync("variants.json");
+    let variants = fs.readFileSync("jsonFiles/variants.json");
     res.send(variants);
 });
 
 webserver.get("/stats",function(req, res) {
     logLineSync(logFN,`[${port}] `+"/stats service called");
-    let stats = fs.readFileSync("stats.json");
+    let stats = fs.readFileSync("jsonFiles/stats.json");
     res.send(stats);
 });
 
 webserver.post("/vote",function(req, res) {
 
-    let fileContent = fs.readFileSync("stats.json");
+    let fileContent = fs.readFileSync("jsonFiles/stats.json");
     fileContent = JSON.parse(fileContent);
 
     fileContent.forEach(elem => {
@@ -63,8 +63,8 @@ webserver.post("/vote",function(req, res) {
         }
     });
 
-    fs.writeFileSync("stats.json", JSON.stringify(fileContent));
-    fileContent = fs.readFileSync("stats.json", "utf8");
+    fs.writeFileSync("jsonFiles/stats.json", JSON.stringify(fileContent));
+    fileContent = fs.readFileSync("jsonFiles/stats.json", "utf8");
     res.send(fileContent);
 
     //logLineSync(logFN,`[${port}] `+"/variants service called");
