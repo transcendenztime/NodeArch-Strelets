@@ -26,7 +26,7 @@ function getStats() {
         })
 }
 
-//обновляем сттистику на странице
+//обновляем статистику на странице
 function updateStats(data) {
     let stats = data.map( stat =>
         `<div><span>${stat.name}: </span><span style="font-weight: bold;">${stat.count}</span></div>`
@@ -49,7 +49,7 @@ function sendVote(code) {
 function getInfo(code) {
     let body = JSON.stringify({code: code});
     if(code === "xml"){
-        alert("xml");
+        //alert("xml");
         fetch('/getinfo', {method: "POST", headers: {'Content-Type': 'application/json', 'Accept' : 'text/xml'}, body: body})
             //.then(response => response.json())
             .then(response => response.text())
@@ -57,18 +57,18 @@ function getInfo(code) {
                 document.getElementById("formatsTextArea").innerHTML = data;
             })
     }else if(code === "html"){
-        alert("html");
+        //alert("html");
         fetch('/getinfo', {method: "POST", headers: {'Content-Type': 'application/json', 'Accept' : 'text/html'}, body: body})
             .then(response => response.text())
             .then( data => {
                 document.getElementById("formatsTextArea").innerHTML = data;
             })
     }else if(code === "json"){
-        alert("json");
+        //alert("json");
         fetch('/getinfo', {method: "POST", headers: {'Content-Type': 'application/json', 'Accept' : 'application/json'}, body: body})
             .then(response => response.json())
             .then( data => {
-                document.getElementById("formatsTextArea").innerHTML = data;
+                document.getElementById("formatsTextArea").innerHTML = JSON.stringify(data);
             })
     }else{
         alert("Unknown Header.Accept");

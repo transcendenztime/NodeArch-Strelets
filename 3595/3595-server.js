@@ -100,8 +100,10 @@ webserver.post("/getinfo",function(req, res) {
     if ( clientAccept==="application/json" ) {
         res.setHeader("Content-Type", "application/json");
         //console.log("json: ",fileContent);
-        logLineSync(logFN,`[${port}] `+"send: "+`${JSON.stringify(fileContent)}`);
-        res.send(JSON.stringify(fileContent));
+        //logLineSync(logFN,`[${port}] `+"send: "+`${JSON.stringify(fileContent)}`);
+        //res.send(JSON.stringify(fileContent));
+        logLineSync(logFN,`[${port}] `+"send: "+`${fileContent}`);
+        res.send(fileContent);
         //res.send(JSON.stringify(fileContent));
     }else if ( clientAccept==="text/xml" ) {
         //console.log("fileContent: ", fileContent);
