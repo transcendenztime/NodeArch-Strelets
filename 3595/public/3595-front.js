@@ -4,7 +4,7 @@ let allVariants = {};
 
 function start(){
     getVariants();
-    getStats();
+
 //    console.log("allVariants: ", allVariants);
 }
 
@@ -21,6 +21,7 @@ function getVariants(){
             ).join(`<br>`);
             document.getElementById("buttons").innerHTML = variants;
             //console.log("allVariants: ", allVariants);
+            getStats();
         })
 }
 
