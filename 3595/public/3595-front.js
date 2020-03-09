@@ -68,7 +68,7 @@ function getInfo(code) {
         fetch('/getinfo', {method: "POST", headers: {'Content-Type': 'application/json', 'Accept' : 'application/json'}, body: body})
             .then(response => response.json())
             .then( data => {
-                document.getElementById("formatsTextArea").innerHTML = JSON.stringify(data);
+                document.getElementById("formatsTextArea").innerHTML = data;
             })
     }else{
         alert("Unknown Header.Accept");
