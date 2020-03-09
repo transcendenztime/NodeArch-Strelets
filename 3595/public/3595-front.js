@@ -1,8 +1,11 @@
 window.onload = () => start();
 
+let allVariants = {};
+
 function start(){
     getVariants();
     getStats();
+//    console.log("allVariants: ", allVariants);
 }
 
 //получаем варианты ответов
@@ -10,10 +13,14 @@ function getVariants(){
     fetch('/variants', {method: "GET", headers: {'Content-Type': 'application/json'}})
         .then(response => response.json())
         .then( data => {
-            let variants = data.map( variant =>
-                `<input type="button" id="${variant.code}_" value="${variant.name}" onclick=sendVote("${variant.code}")><br>`
+            //allVariants = data;
+    //console.log("allVariants: ", allVariants);
+            let variants = data.map( variant =>{
+                allVariants[variant.code] = variant.name;
+                return `<input type="button" id="${variant.code}_" value="${variant.name}" onclick=sendVote("${variant.code}")><br>`}
             ).join(`<br>`);
             document.getElementById("buttons").innerHTML = variants;
+            //console.log("allVariants: ", allVariants);
         })
 }
 
@@ -29,7 +36,8 @@ function getStats() {
 //обновляем статистику на странице
 function updateStats(data) {
     let stats = data.map( stat =>
-        `<div><span>${stat.name}: </span><span style="font-weight: bold;">${stat.count}</span></div>`
+        //`<div><span>${stat.name}: </span><span style="font-weight: bold;">${stat.count}</span></div>`
+        `<div><span>${allVariants[stat.code]}: </span><span style="font-weight: bold;">${stat.count}</span></div>`
     ).join(`<br>`);
     document.getElementById("stats").innerHTML = stats;
 }

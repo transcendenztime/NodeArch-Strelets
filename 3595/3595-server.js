@@ -114,7 +114,7 @@ webserver.post("/getinfo",function(req, res) {
         res.setHeader("Content-Type", "text/html");
         fileContent = JSON.parse(fileContent);
         let stats = fileContent.map( stat =>
-            `<div><span>${stat.code}: </span><span>${stat.name}: </span><span style="font-weight: bold;">${stat.count}</span></div>`
+            `<div><span>${stat.code}: </span><span style="font-weight: bold;">${stat.count}</span></div>`
         ).join(`<br>`);
         logLineSync(logFN,`[${port}] `+"send: "+`${stats}`);
         res.send(stats);
