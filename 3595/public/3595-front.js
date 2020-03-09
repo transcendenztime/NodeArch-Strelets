@@ -35,6 +35,7 @@ function getStats() {
 
 //обновляем статистику на странице
 function updateStats(data) {
+    console.log("allVariants:",allVariants);
     let stats = data.map( stat =>
         //`<div><span>${stat.name}: </span><span style="font-weight: bold;">${stat.count}</span></div>`
         `<div><span>${allVariants[stat.code]}: </span><span style="font-weight: bold;">${stat.count}</span></div>`
