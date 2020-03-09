@@ -66,7 +66,8 @@ function getInfo(code) {
     }else if(code === "json"){
         //alert("json");
         fetch('/getinfo', {method: "POST", headers: {'Content-Type': 'application/json', 'Accept' : 'application/json'}, body: body})
-            .then(response => response.json())
+            //.then(response => response.json())
+            .then(response => response.text())
             .then( data => {
                 document.getElementById("formatsTextArea").innerHTML = data;
             })
