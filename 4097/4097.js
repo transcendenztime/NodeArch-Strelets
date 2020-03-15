@@ -114,7 +114,19 @@ function makeUserDataPage(formValues) {
     logLineSync(logFN,`[${port}] `+"index.html called");
 });*/
 
-webserver.get('*',[
+webserver.get('*',(req, res) => {
+
+    logLineSync(logFN,`[${port}] `+"/ GET called, get pars: "+JSON.stringify(req.query));
+
+    //сразу попадаем на пустую форму (если нет параметров)
+    if(req.originalUrl === '/') {
+        res.send(makeFormPage());
+    } else {//если есть какие-то параметры, выводим страницу с данными пользователя
+        res.send(makeUserDataPage(req.query));
+    }
+});
+
+webserver.post('*',[
     //валидация
     check('login')
         .not().isEmpty()
@@ -145,40 +157,23 @@ webserver.get('*',[
         .escape(),
 
 ], (req, res) => {
-
-    logLineSync(logFN,`[${port}] `+"/ GET called, get pars: "+JSON.stringify(req.query));
-
-    //сразу попадаем на пустую форму (если нет параметров)
-    if(req.originalUrl === '/') {
-        res.send(makeFormPage());
-    } else {//если есть какие-то параметры
-
-        const errors = validationResult(req);
-        let errorsObj = errors.mapped();
-        console.log("errors: ", errorsObj);
-
-        //если есть ошибки (если форма не прошла валидацию), выведем форму со всеми значениями и ошибками
-        if (!errors.isEmpty()) {
-            //return res.status(422).json({ errors: errors.array() });
-            return res.send(makeFormPage(errorsObj, req.query));
-        }else{
-            //если ошибок нет, выведем все данные формы
-            res.send(makeFormPage() + makeUserDataPage(req.query));
-        }
-    }
-});
-
-webserver.post('*',(req, res) => {
     logLineSync(logFN,`[${port}] `+"/ POST called");
     let login = req.body.login;
     let password = req.body.password;
     let email = req.body.email;
     let age = req.body.age;
 
-    console.log("sdfsd: ",login + " " + password + " " + email + " " + age);
+    const errors = validationResult(req);
+    let errorsObj = errors.mapped();
+    console.log("errors: ", errorsObj);
 
-    //переадресуем на обработчик GET-запроса
-    res.redirect(302,`/?login=${login}&password=${password}&email=${email}&age=${age}`);
+    //если есть ошибки (если форма не прошла валидацию), выведем форму со всеми значениями и ошибками
+    if (!errors.isEmpty()) {
+        return res.send(makeFormPage(errorsObj, req.body));
+    }else{
+        //если ошибок нет, переадресуем на обработчик GET-запроса
+        res.redirect(302,`/?login=${login}&password=${password}&email=${email}&age=${age}`);
+    }
 
 });
 
